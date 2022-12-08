@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- 바벨로 변환시에 스크립트 코드에 타입 넣어주기! 안그러면 syntax error 남 -->
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function MinitesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="min">Minutes</label>
+            <input
+              id="min"
+              value={flipped ? amount * 60 : amount}
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={flipped}
+            />
+          </div>
+          <div>
+            <label htmlFor="hor">Hours</label>
+            <input
+              id="hor"
+              value={flipped ? amount : Math.round(amount / 60)}
+              placeholder="Hours"
+              type="number"
+              disabled={!flipped}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{flipped ? "TurnBack" : "flipped"}</button>
+        </div>
+      );
+    }
+    function KmToMiles() {
+      const [amo, setAmo] = React.useState(0);
+      const [flip, setFlip] = React.useState(false);
+      const reset = () => setAmo(0);
+      const onFlip = () => {
+        reset();
+        setFlip((current) => !current);
+      };
+      const onChange = (event) => {
+        setAmo(event.target.value);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="km">Km</label>
+            <input
+              id="km"
+              value={flip ? amo * 1.609 : amo}
+              type="number"
+              placeholder="Km"
+              onChange={onChange}
+              disabled={flip}
+            />
+          </div>
+          <div>
+            <label htmlFor="mile">Miles</label>
+            <input
+              id="mile"
+              value={flip ? amo : Math.round(amo / 1.609)}
+              type="number"
+              placeholder="Miles"
+              onChange={onChange}
+              disabled={!flip}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{flip ? "TurnBack" : "flopped"}</button>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+        console.log("render w/", index);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="xx">Select Your Units</option>
+            <option value="0">Minites & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "xx" ? "Please select Your Units" : null}
+          {index === "0" ? <MinitesToHours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+
+    /*
+    컴포넌트는 그 안에 또 다른 컴포넌트를 렌더링 할 수 있다.
+    분할 정복(divide and conquer)
+    - App 컴포넌트는 root div를 그려주는 역할
+    - App 컴포넌트는 그 안에 다른 2개(분->시간, km->miles 컨버터)의 컴포넌트들을 렌더링
+    - App 컴포넌트가 state를 가지도록 만들자
+    -select는 그냥 HTML
+    - {}안에는 JS를 쓸 수 있다.
+    - state를 변화시킬 때, 모든게 다 새로고침 된다.
+
+      속성으로 value 를 가질 수 있으면 onChange 속성을 붙일 수 있다.
+      SELECT, OPTION에도 붙힐 수 있다 (드롭다운) 11:12 참고하자
+
+      useState의 두번째 인자인 modifier함수를 실행하면 해당 컴포넌트가 리렌더링 된다.
+
+      [리렌더링 조건]
+      1) props이 바뀔때
+      2) state가 바뀔때
+      3) 부모 컴포넌트가 리렌더링 될 때
+
+    */
+  </script>
+</html>

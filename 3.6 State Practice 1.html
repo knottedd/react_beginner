@@ -14,20 +14,30 @@
       const onChange = (event) => {
         setMinutes(event.target.value);
       };
+      const reset = () => setMinutes(0);
       return (
         <div>
-          <h1 className="hi">Super Converter</h1>
-          <label htmlFor="min">Minutes</label>
-          <input
-            id="min"
-            value={minutes}
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>You want to convert {minutes}</h4>
-          <label htmlFor="hor">Hours</label>
-          <input id="hor" placeholder="Hours" type="number" />
+          <div>
+            <label htmlFor="min">Minutes</label>
+            <input
+              id="min"
+              value={minutes}
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="hor">Hours</label>
+            <input
+              id="hor"
+              value={Math.round(minutes / 60)}
+              placeholder="Hours"
+              type="number"
+              disabled
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
@@ -37,6 +47,9 @@
         1. input 옆의 쓰는 label의 for 속성은 react에서는 htmlFor로 표시한다.
 
         2. controlled component :Input 태그 나오면 value, onChange 속성을 붙여서 상태를 관리하자
+        */
+    /*
+        
         */
   </script>
 </html>
