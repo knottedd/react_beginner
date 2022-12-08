@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 바벨로 변환시에 스크립트 코드에 타입 넣어주기! 안그러면 syntax error 남 -->
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        let counter = 0;
+        /*
+            어플리케이션이 시작될 때 Container를 렌더링 하는데 할 때마다 카운터는
+            0이기 때문에 렌더링을 함수 안에서 다시 렌더링 해줘야 카운트가 올라감
+        */
+        function countUp() {
+            counter = counter + 1;
+            render();
+        }
+        /*
+            고로 렌더링을 하는 함수를 밑에 만들어서 리렌더링 할 부분에 추가
+        */
+        function render() {
+            ReactDOM.render(<Container />, root);
+        }
+        /*
+            위에 컨테이너를 업데이트 해주었기 때문에 밑에 컨테이너의 카운터는 
+            클릭 수가 반영 된 컨테이너이다.
+        */
+        const Container = () => (
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button onClick={countUp}>Click Me</button>
+            </div> 
+        );
+        render();
+        // 허나 위의 방식은 딱히 좋은 방법은 아님. 계속해서 render 해줘야하기 때문에.
+
+        /*
+            리액트의 좋은점은 UI에서 바뀐 부분만 업데이트 해줌
+
+            변수를 JSX에 전달하는 방법
+            let counter = 0; 변수를 만들고
+            Total clicks: {counter} 로 만들어주면
+            변수의 카운터 숫자에 따라 변화됨
+
+            onClick={countUp}
+            -> 이벤트리스너가 countUp 함수를 호출하고 countUp은 카운트를 바꿔줌
+
+            ReactDOM.render()로 container 처음 랜더링 할 때 카운터가 0이므로 0으로 호출됨
+            그리고 container를 리렌더링을 해줘야 카운터가 +1 상태로 업데이트 됨.
+            즉, countUp을 호출할 때마다 ReactDOM.render()을 다시 호출해야함
+            -> countUp에 ReactDOM.render( ) 넣어주기
+        */
+    </script>
+</html> 

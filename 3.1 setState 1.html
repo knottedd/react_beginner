@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 바벨로 변환시에 스크립트 코드에 타입 넣어주기! 안그러면 syntax error 남 -->
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function App() {
+            // React.useState()를 사용하면 배열이 하나 생성된다. 
+            // [undefined, f] 여기서 언디파인드는 userState()에 () 안에
+            // 초기 값을 넣어줌으로써 변경할 수 있고 f는 배열 안 첫번째 값을 변경
+            // 할때 사용하는 함수이다.
+            // 즉 const data = React.useState(); 는
+            // 3.0에서 카운트를 업 시켰던
+            // let counter = 0; function countUp() { //code } 와 같다.
+            // 베열 안의 요소를 꺼내올 때 data[0]처럼 꺼내올 수 있으나 더 나은 방법이 있다.
+
+            /*
+            const data = React.useState(0);
+            const counter = data[0];
+            const modifier = data[1];
+            */
+
+            // 이렇게 담아주면 변수명 counter, modifier만 사용하더라도 배열 안 값을 불러올 수 있다.
+            const [counter, modifier] = React.useState(0);
+
+            return (
+                <div>
+                    <h3>Total clicks: 0</h3>
+                    <button>Click Me</button>
+                </div> 
+            );
+        }
+        ReactDOM.render(<App />, root);
+
+        /*
+            만약 화살표 함수에 React.useState()를 하고 싶다면
+            const App = () => {
+                const [counter, modifier] = React.useState(0);
+                return (
+                component
+                );
+                };
+            이런식으로 중괄호를 치고 사용 해야 한다.
+        */
+        /*
+            리액트JS에서 데이터를 저장시켜 자동으로 리렌더링을 일으킬 수 있는 방법
+            const data = React.useState();를 console.log 시키면
+            [undefined, f ] -> undefined와 함수가 적힌 배열이 나타남
+            undefined는 data이고 f는 data를 바꿀 때 사용하는 함수
+            React.useState() 함수는 초기값을 설정할 수 있음
+            즉, undefined는 초기값이고 두 번째 요소인 f는 그 값을 바꾸는 함수
+
+            배열을 꺼내기
+            const x = [1, 2, 3]
+            const [a, b, c] = x;
+            으로 꺼낼 수 있음
+        */
+
+    </script>
+</html> 

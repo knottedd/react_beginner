@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 바벨로 변환시에 스크립트 코드에 타입 넣어주기! 안그러면 syntax error 남 -->
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        const Title = (
+            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+            Hello I`m a title
+            </h3>
+        );
+        const Button = (
+            <button 
+                style={{
+                    backgroundColor: "tomato",
+                }} 
+                onClick={() => console.log("im clicked")}
+            >
+                Click Me
+            </button>
+            );
+
+        const container = React.createElement("div", null, [Title, Button]);
+        ReactDOM.render(container, root);
+    </script>
+    <!-- 
+        JSX – 자바스크립트를 확장한 문법
+        보통의 HTML과 비슷. 그러나 property를 HTML 태그의 속성처럼 적으면 됨
+        const Title = (
+        console.log("mouse enter")}>
+        Hello I'm a span
+
+        );
+        style={{ backgroundColor: "tomato" }} -> 스타일은 {} 2개임
+        JSX를 브라우저가 온전히 이해하지 못하므로 이해할 수 있게
+        https://unpkg.com/@babel/standalone/babel.min.js 를 설치해야함
+        -> JSX로 적은 코드를 브라우저가 이해할 수 있는 형태로 바꿔줌
+        바벨을 가져온 뒤 script type="text/babel"로 적어줘야 인식함
+    -->
+</html> 

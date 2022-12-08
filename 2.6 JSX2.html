@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 바벨로 변환시에 스크립트 코드에 타입 넣어주기! 안그러면 syntax error 남 -->
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function Title () {
+            return (
+                <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                Hello I`m a title
+                </h3>
+            );
+        } 
+        const Button = () => (
+            <button 
+                style={{
+                    backgroundColor: "tomato",
+                }} 
+                onClick={() => console.log("im clicked")}
+            >
+                Click Me
+            </button>
+            );
+            
+        /*
+        const container = React.create Element("div", null, [Title, Button]);
+        ReactDOM.render(container, root);
+        */
+
+        /*
+        container도 react.createElement를 쓰지 않고 JSX 문법으로 변경 해줄 수 있다.
+        원래는 변수로 지정 되어 있던 Title과 Button을 함수로 변경해준 후 
+        해당 컴포넌트 명을 HTML 태그 처럼 만들어서 넣어준다. * 닫는 태그 필수
+        또한 컴포넌트의 첫 글자는 반드시 대문자여야 한다. (우리가 직접 만든 요소들)
+        소문자일 경우 React에선 단순 HTML 요소로 인식함.
+        */
+
+        const Container = () => (
+            <div>
+                <Title />
+                <Button />
+            </div> 
+        );
+        ReactDOM.render(<Container />, root);
+    </script>
+
+</html> 

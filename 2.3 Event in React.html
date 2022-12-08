@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script>
+        const root = document.getElementById("root");
+        const h3 = React.createElement(
+            "h3", 
+            {
+                onMouseEnter: () => console.log("mouse enter"),
+            },
+            "Hello, I`m a span"
+            );
+        const btn = React.createElement(
+            "button", 
+            {
+                onClick: () => console.log("im clicked"),
+                style: {
+                    backgroundColor : "tomato",
+                },
+            }, 
+            "Click me"
+            );
+        const container = React.createElement("div", null, [h3, btn]);
+        ReactDOM.render(container, root);
+    </script>
+    <!-- 
+        두 가지 const를 render 하고 싶은 경우 div를 만든다
+        그리고 React.createElement("div", null, [span, btn]); 와 같이 배열을 만들어서 const를 넣어준다.
+
+        property에 eventListener 넣는 것도 가능.
+        클릭 - {onClick: () => console.log("I'm clicked")}
+        마우스엔터 - {onMouseEnter: () => console.log("mouse enter")}
+    -->
+</html> 
